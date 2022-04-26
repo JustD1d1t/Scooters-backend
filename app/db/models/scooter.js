@@ -14,26 +14,24 @@ const scooterSchema = new mongoose.Schema({
     max: [29999, "Maximum price is 29999"],
     default: 999,
   },
-  // image: {
-  //   type: String,
-  //   required: [true, "You have to add image"],
-  // },
   color: [
     {
-      type: String,
-      required: [true, "You have to add image"],
+      color: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
-  ],
-  deliveryDate: [
     {
-      type: Object,
-      required: [true, "You have to add image"],
+      color: {
+        type: String,
+      },
+      url: {
+        type: String,
+      },
     },
   ],
-  rate: {
-    type: Number,
-    default: null,
-  },
   manufacturer: {
     type: String,
     required: [true, "You have to type manufacturer"],

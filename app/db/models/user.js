@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     maxlength: [30, "Max length is 30 characters"],
     unique: true,
   },
+  admin: {
+    type: Boolean,
+    required: false,
+  },
   name: {
     type: String,
     minLength: [4, "At least 4 characters"],
@@ -55,6 +59,11 @@ const userSchema = new mongoose.Schema({
     maxlength: [5, "Maximum 5 characters"],
   },
   country: {
+    type: String,
+    minLength: [4, "At least 4 characters"],
+    maxlength: [30, "Max length is 30 characters"],
+  },
+  city: {
     type: String,
     minLength: [4, "At least 4 characters"],
     maxlength: [30, "Max length is 30 characters"],

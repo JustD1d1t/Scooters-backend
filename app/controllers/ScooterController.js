@@ -1,13 +1,16 @@
 import { Scooter } from "../db/models/scooter.js";
 
 class ScooterControllerClass {
-  async getAllScooters(req, res) {
+  async getScooters(req, res) {
     const where = {};
     const queries = req.query;
     for (const query in queries) {
-      where[query] = queries[query];
+      const singleQueries = queries[query].split(".");
+      singleQueries.forEach((query, index) => {
+        singleQueries[index] = query.replace("_", " ");
+      });
+      where[query] = singleQueries;
     }
-    console.log(where);
     const scooters = await Scooter.find(where);
     res.json(scooters);
   }
@@ -17,9 +20,7 @@ class ScooterControllerClass {
     let scooter;
     try {
       scooter = await Scooter.findById(id);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
     res.json({ scooter: scooter });
   }
 
@@ -27,22 +28,30 @@ class ScooterControllerClass {
     const scooter = new Scooter({
       name: req.body.name,
       price: req.body.price,
-      image: req.body.image,
-      color: req.body.color,
-      rate: req.body.rate,
       manufacturer: req.body.manufacturer,
       country: req.body.country,
+      color: [
+        {
+          color: req.body.colorFirstName,
+          url: req.body.colorFirstUrl,
+        },
+        {
+          color: req.body.colorSecondName,
+          url: req.body.colorSecondUrl,
+        },
+      ],
       powerType: req.body.powerType,
       engineCapacity: req.body.engineCapacity,
       wheelSize: req.body.wheelSize,
       seats: req.body.seats,
-      description: req.body.description,
       topSpeed: req.body.topSpeed,
+      description: req.body.description,
     });
     try {
       await scooter.save();
       res.status(201).json(scooter);
     } catch (e) {
+      console.log(e);
       res.status(422).json({ errors: e.errors });
     }
   }

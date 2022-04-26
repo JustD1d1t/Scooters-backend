@@ -2,8 +2,21 @@ import { Order } from "../db/models/order.js";
 
 class OrderControllerClass {
   async addOrder(req, res) {
+    const {
+      items,
+      totalQuantity,
+      deliveryMethod,
+      paymentMethod,
+      address,
+      user,
+    } = req.body;
     const order = new Order({
-      scooters: req.body.scooters,
+      items: items,
+      totalQuantity,
+      deliveryMethod,
+      paymentMethod,
+      address,
+      user,
     });
     try {
       await order.save();
@@ -14,7 +27,6 @@ class OrderControllerClass {
   }
 
   async getOrder(req, res) {
-    console.log(req.params.oid);
     res.json({ message: "success" });
   }
 }
