@@ -73,9 +73,7 @@ const userSchema = new mongoose.Schema({
     minLength: [4, "At least 4 characters"],
     maxlength: [30, "Max length is 30 characters"],
   },
-  favourite: [
-    { type: mongoose.Types.ObjectId, required: true, ref: "Scooter" },
-  ],
+  favourite: [{ type: String, required: true }],
   orders: [{ type: mongoose.Types.ObjectId, required: true, ref: "Order" }],
 });
 

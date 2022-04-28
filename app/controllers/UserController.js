@@ -1,4 +1,5 @@
 import { User } from "../db/models/user.js";
+import { Scooter } from "../db/models/scooter.js";
 import jsonwebtoken from "jsonwebtoken";
 import { config } from "../config.js";
 
@@ -125,6 +126,56 @@ class UserControllerClass {
     } catch (error) {
       res.json({ error: error });
     }
+  }
+  async addToFavoutire(req, res) {
+    const { scooterId, userId } = req.body;
+    let userFavourite;
+    let scooter;
+    try {
+      let user = await User.findById(userId);
+      userFavourite = user.favourite;
+    } catch (error) {
+      return res.json({ error: "User not found" });
+    }
+    try {
+      scooter = await Scooter.findById(scooterId);
+    } catch (error) {
+      return res.json({ error: "Scooter not found" });
+    }
+    if (userFavourite.find((favourite) => favourite === scooterId)) {
+      const scooterIndex = userFavourite.indexOf(scooterId);
+      userFavourite.splice(scooterIndex, 1);
+    } else {
+      userFavourite.push(scooterId);
+    }
+    try {
+      await User.findByIdAndUpdate(userId, {
+        favourite: userFavourite,
+      });
+      res.json({ message: "Added to favoruite" });
+    } catch (error) {
+      res.json({ error: error });
+    }
+  }
+  async getFavourite(req, res) {
+    const { userId } = req.query;
+    let user;
+    try {
+      user = await User.findById(userId);
+    } catch (e) {
+      res.status(422).json({ errors: e.error });
+    }
+    const favoruiteScooters = [];
+    for (const scooterId of user.favourite) {
+      try {
+        const scooter = await Scooter.findById(scooterId);
+        favoruiteScooters.push(scooter);
+      } catch (e) {
+        res.status(422).json({ error: e.errors });
+      }
+    }
+
+    res.json({ favourite: favoruiteScooters });
   }
 }
 export const UserController = new UserControllerClass();

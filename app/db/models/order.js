@@ -12,7 +12,23 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      title: {
+        type: String,
+        required: true,
+      },
+      image: {
+        type: String,
+        required: true,
+      },
       quantity: {
+        type: Number,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      totalPrice: {
         type: Number,
         required: true,
       },
@@ -62,6 +78,10 @@ const orderSchema = new mongoose.Schema({
   },
   user: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   totalQuantity: {
+    type: Number,
+    required: true,
+  },
+  totalPriceForAll: {
     type: Number,
     required: true,
   },
