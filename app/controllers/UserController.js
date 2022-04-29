@@ -38,7 +38,7 @@ class UserControllerClass {
       await user.save();
       res.json({ message: "User has been created" });
     } catch (e) {
-      res.status(422).json({ errors: e });
+      res.status(422).json({ error: "Something gone wrong" });
     }
   }
   async login(req, res) {
@@ -78,7 +78,9 @@ class UserControllerClass {
         },
         { algorithm: "HS512" }
       );
-      res.header("auth-token", token).json({ token: token });
+      res
+        .header("auth-token", token)
+        .json({ token: token, message: "Succesfully logged in" });
     } catch (e) {
       return res.json({ errors: "Invalid data" });
     }

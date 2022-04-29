@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    minLength: [4, "At least 4 characters"],
+    minLength: [3, "At least 3 characters"],
     maxlength: [30, "Max length is 30 characters"],
   },
   lastName: {
