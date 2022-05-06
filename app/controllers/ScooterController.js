@@ -2,6 +2,7 @@ import { Scooter } from "../db/models/scooter.js";
 
 class ScooterControllerClass {
   async getScooters(req, res) {
+    console.log(req.query);
     const where = {};
     const queries = req.query;
     for (const query in queries) {
@@ -49,7 +50,7 @@ class ScooterControllerClass {
     });
     try {
       await scooter.save();
-      res.status(201).json(scooter);
+      res.status(201).json({ message: "Scooter has been added to base." });
     } catch (e) {
       console.log(e);
       res.status(422).json({ errors: e.errors });
