@@ -2,9 +2,9 @@ import { Scooter } from "../db/models/scooter.js";
 
 class ScooterControllerClass {
   async getScooters(req, res) {
-    console.log(req.query);
     const where = {};
     const queries = req.query;
+    let scooters;
     for (const query in queries) {
       const singleQueries = queries[query].split(".");
       singleQueries.forEach((query, index) => {
@@ -12,7 +12,12 @@ class ScooterControllerClass {
       });
       where[query] = singleQueries;
     }
-    const scooters = await Scooter.find(where);
+    if (queries.limit) {
+      scooters = await Scooter.find().limit(queries.limit);
+      res.json(scooters);
+      return;
+    }
+    scooters = await Scooter.find(where);
     res.json(scooters);
   }
 
