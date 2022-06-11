@@ -1,5 +1,5 @@
 {
-  "name": "scooters-stock-backend",
+  "name": "binance-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon app/index.js -e js,json"
   },
-  "author": "",
+  "author": "tidid",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
