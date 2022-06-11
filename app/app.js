@@ -1,10 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import { config } from "./config.js";
-import { orderRouter } from "./routes/order.js";
-import { scootersRouter } from "./routes/scooter.js";
+import { priceRouter } from "./routes/price.js";
 import { userRouter } from "./routes/user.js";
-import cors from "cors";
 
 export const app = express();
 
@@ -15,12 +13,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(cors());
-
 app.use(express.json());
 
-app.use("/scooters", scootersRouter);
+app.use("/prices", priceRouter);
 app.use("/user", userRouter);
-app.use("/order", orderRouter);
 
 mongoose.connect(config.database);

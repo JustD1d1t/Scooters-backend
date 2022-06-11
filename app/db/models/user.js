@@ -15,66 +15,10 @@ const userSchema = new mongoose.Schema({
     minLength: [4, "At least 4 characters"],
     maxlength: [30, "Max length is 30 characters"],
   },
-  username: {
+  token: {
     type: String,
-    required: true,
-    minLength: [4, "At least 4 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-    unique: true,
-  },
-  admin: {
-    type: Boolean,
     required: false,
   },
-  name: {
-    type: String,
-    minLength: [3, "At least 3 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-  },
-  lastName: {
-    type: String,
-    minLength: [4, "At least 4 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-  },
-  street: {
-    type: String,
-    minLength: [4, "At least 4 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-  },
-  houseNumber: {
-    type: Number,
-    min: [1, "Minimum value is 1"],
-    max: [999, "Minimum value is 999"],
-  },
-  flatNumber: {
-    type: Number,
-    min: [1, "Minimum value is 1"],
-    max: [30, "Minimum value is 30"],
-  },
-  zipCode: {
-    type: Number,
-    min: [0, "Minimum value is 1"],
-    max: [99999, "Minimum value is 5"],
-    minlength: [4, "At least 4 characters"],
-    maxlength: [5, "Maximum 5 characters"],
-  },
-  country: {
-    type: String,
-    minLength: [4, "At least 4 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-  },
-  city: {
-    type: String,
-    minLength: [4, "At least 4 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-  },
-  phoneNumber: {
-    type: String,
-    minLength: [4, "At least 4 characters"],
-    maxlength: [30, "Max length is 30 characters"],
-  },
-  favourite: [{ type: String, required: true }],
-  orders: [{ type: mongoose.Types.ObjectId, required: true, ref: "Order" }],
 });
 
 userSchema.pre("save", function (next) {
